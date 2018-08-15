@@ -38,27 +38,27 @@ export function uploadFileReducer(state = { status: 'none', data: {} }, action) 
 }
 
 // Action Creators
-export function loadFiles() {
+function loadFiles() {
     return { type: PERFORMING_LOAD };
 }
 
-export function loadedFiles(data) {
+function loadedFiles(data) {
     return { type: PERFORMED_LOAD, payload: data.files };
 }
 
-export function failedToLoadFiles(error) {
+function failedToLoadFiles(error) {
     return { type: FAILED_LOAD, payload: error };
 }
 
-export function uploadFile() {
+function uploadFile() {
     return { type: PERFORMING_UPLOAD };
 }
 
-export function uploadedFile(data) {
+function uploadedFile(data) {
     return { type: PERFORMED_UPLOAD, payload: data.file };
 }
 
-export function failedToUploadFile(error) {
+function failedToUploadFile(error) {
     return { type: FAILED_LOAD, payload: error };
 }
 
@@ -67,7 +67,7 @@ export function getFiles() {
     return async (dispatch, getState) => {
         dispatch(loadFiles());
         try {
-            const result = await axios.get('http://localhost:5000/api/files');
+            const result = await axios.get(Constants.SERVER_URL+'files');
             dispatch(loadedFiles(result.data));
         } catch (error) {
             console.error('Error loading files', error);
@@ -82,8 +82,9 @@ export function doUploadFile(data) {
         try {
             const formData = new FormData();
             formData.append('file', data.file);
-            const result = await axios.post('http://localhost:5000/api/files', formData);
+            const result = await axios.post(Constants.SERVER_URL+'files', formData);
             dispatch(uploadedFile(result.data));
+            dispatch(getFiles());
         } catch (error) {
             console.error('Error uploading file', error);
             dispatch(failedToUploadFile(error));

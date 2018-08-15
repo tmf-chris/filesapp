@@ -1,11 +1,12 @@
 import React from 'react';
 import Radium from 'radium';
-import muiThemeable from 'material-ui/styles/muiThemeable';
 import NavigationBar from './NavigationBar';
 import filesConnector from '../features/files/components/FilesConnector';
 import FilesView from '../features/files/components/FilesView';
 import fileUploadConnector from '../features/files/components/FileUploadConnector';
 import FileUploadView from '../features/files/components/FileUploadView';
+import makeDialog from '../features/dialogs/components/MakeDialog';
+import DialogButton from '../features/dialogs/components/DialogButton';
 
 const styles = {
     main: {
@@ -16,6 +17,7 @@ const styles = {
 
 const FilesViewer = filesConnector(FilesView);
 const FileUploadViewer = fileUploadConnector(FileUploadView);
+const FileDialog = makeDialog(fileUploadConnector(FileUploadView));
 
 class Page extends React.Component {
     render() {
@@ -23,7 +25,10 @@ class Page extends React.Component {
             <div>
                 <NavigationBar/>
                 <div style={styles.main}>
-                    <FileUploadViewer/>
+                    <div style={{ marginBottom: '16px' }}>
+                        <DialogButton name='upload' label='Upload File'/>
+                    </div>
+                    <FileDialog name='upload'/>
                     <FilesViewer/>
                 </div>
             </div>

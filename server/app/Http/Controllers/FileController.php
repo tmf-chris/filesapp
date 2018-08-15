@@ -28,30 +28,23 @@ class FileController extends Controller
     }
 
     public function show($id){
-        $file = File::Uuid($id);
-        return response()->json(['status' => 'success', 'file' => $file], 200);
+        $file = File::find($id);
+        return response()->file(storage_path('app/public/'.$file->path));
     }
 
     public function edit($id){
-        $file = File::Uuid($id);
+        $file = File::find($id);
         return response()->json($file, 200);
     }
 
     public function update($id, Request $request)
     {
-        $file = File::Uuid($id);
-        $file->update([
-            'name' => $request->input('name'),
-            'extension' => $request->input('extension'),
-            'mime' => $request->input('mime'),
-            'size' => $request->input('size')
-        ]);
         return response()->json(['status' => 'success'], 200);
     }
 
     public function destroy($id)
     {
-        $file = File::Uuid($id);
+        $file = File::find($id);
         $file->delete();
         return response()->json(['status' => 'success'], 200);
     }

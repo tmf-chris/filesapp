@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Radium from 'radium';
-import muiThemeable from 'material-ui/styles/muiThemeable';
 import { withStyles } from '@material-ui/core/styles';
 import { getFiles } from '../duck';
 
@@ -70,7 +69,7 @@ const filesConnector = WrappedComponent => {
         }
     }
 
-    FilesConnector = muiThemeable()(Radium(FilesConnector));
+    FilesConnector = Radium(FilesConnector);
     return connect(
         state => { return { files: state.files } },
         dispatch => bindActionCreators({getFiles}, dispatch)

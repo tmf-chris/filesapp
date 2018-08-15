@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Radium from 'radium';
-import muiThemeable from 'material-ui/styles/muiThemeable';
 import { doUploadFile } from '../duck';
 
 const fileUploadConnector = WrappedComponent => {
@@ -27,9 +25,12 @@ const fileUploadConnector = WrappedComponent => {
         }
 
         fileUpload(files) {
-            const url = 'http://localhost:5001/api/fileupload';
             const formData = { file: files[0] };
+            const { doUploadFile, onClose } = this.props;
             this.props.doUploadFile(formData);
+            if (onClose) {
+                onClose();
+            }
         }
 
         render() {
@@ -44,7 +45,6 @@ const fileUploadConnector = WrappedComponent => {
         }
     }
 
-    FileUploadConnector = muiThemeable()(Radium(FileUploadConnector));
     return connect(
         state => { return { uploaded_file: state.uploaded_file } },
         dispatch => bindActionCreators({doUploadFile}, dispatch)

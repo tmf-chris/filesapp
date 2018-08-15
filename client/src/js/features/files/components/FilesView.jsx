@@ -9,8 +9,9 @@ const CheckboxTable = checkboxHOC(ReactTable);
 
 const columns = [
     {
+        id: 'Name',
         Header: 'Name',
-        accessor: 'name',
+        accessor: d => { const url = Constants.SERVER_URL+'files/'+d.id; return <a href={url} target="_blank">{d.name}</a> },
         filterMethod: (filter, row) => row[filter.id].startsWith(filter.value)
     },
     {
