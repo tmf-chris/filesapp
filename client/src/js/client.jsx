@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './app/root_reducer';
 import Root from './app/Root';
 import { MuiThemeProvider } from 'material-ui/styles';
+var favicon = require('../assets/images/favicon-32x32.ico');
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

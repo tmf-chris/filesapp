@@ -23,6 +23,16 @@ React app for frontend (using axios for REST requests).
 Docker-compose is used to get the containers up and running. There is a base yml file for common 
 actions and this is referred to by the server and client yml files respectively. When run,
  there are 3 containers; server, client and the server's db.
+ 
+The "filesystem" is within the container for the Laravel backend (storage type "Disk") and hence files 
+will be lost if the container is deleted. The database for the backend is synchronized with a 
+'.data' folder on the users local disk. If one wishes to remove the database entirely, simply do:
+
+```sh
+$ cd server
+$ rm -rf .data
+
+```
 
 ##Installation
 

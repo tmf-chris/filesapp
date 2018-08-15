@@ -1,9 +1,8 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
+
 header("Access-Control-Allow-Headers: ACCEPT, CONTENT-TYPE, X-CSRF-TOKEN");
 header("Access-Control-Allow-Methods: GET, POST,PUT, OPTIONS, DELETE");
-header('Access-Control-Allow-Origin: http://localhost:5001');
 header('Access-Control-Allow-Headers: X-Custom-Header');
 header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 

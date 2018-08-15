@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import filesReducer from '../features/files/duck';
+import { filesReducer, uploadFileReducer } from '../features/files/duck';
 
 const rootReducer = combineReducers({
     form: formReducer,
-    files: filesReducer
+    files: filesReducer,
+    uploaded_file: uploadFileReducer
 });
 
 export default rootReducer;

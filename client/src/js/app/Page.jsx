@@ -4,15 +4,18 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import NavigationBar from './NavigationBar';
 import filesConnector from '../features/files/components/FilesConnector';
 import FilesView from '../features/files/components/FilesView';
+import fileUploadConnector from '../features/files/components/FileUploadConnector';
+import FileUploadView from '../features/files/components/FileUploadView';
 
 const styles = {
     main: {
         width: '100%',
-        padding: '76px 24px 0 24px'
+        padding: '88px 24px 0 24px'
     }
 };
 
 const FilesViewer = filesConnector(FilesView);
+const FileUploadViewer = fileUploadConnector(FileUploadView);
 
 class Page extends React.Component {
     render() {
@@ -20,7 +23,8 @@ class Page extends React.Component {
             <div>
                 <NavigationBar/>
                 <div style={styles.main}>
-                    { <FilesViewer/> }
+                    <FileUploadViewer/>
+                    <FilesViewer/>
                 </div>
             </div>
         );

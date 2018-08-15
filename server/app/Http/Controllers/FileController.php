@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\File;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -17,13 +17,14 @@ class FileController extends Controller
 
     public function store(Request $request)
     {
+        $file = $request->file('file');
+        $name = $file->getClientOriginalName();
+        $path = Storage::disk('public')->putFile('uploads', $file);
         $file = File::create([
-            'name' => $request->input('name'),
-            'extension' => $request->input('extension'),
-            'mime' => $request->input('mime'),
-            'size' => $request->input('size')
+            'name' => $name,
+            'path' => $path
         ]);
-        return response()->json(['status' => 'success', 'file' => $file], 200);
+        return response()->json(['status' => 'success'], 200);
     }
 
     public function show($id){

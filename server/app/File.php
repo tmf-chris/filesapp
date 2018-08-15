@@ -11,5 +11,6 @@ class File extends Model
 
     public $incrementing = false;
     protected $table = 'files';
-    protected $fillable = ['id', 'name', 'extension', 'mime', 'size'];
+    protected $hidden = array('path');
+    protected $fillable = ['id', 'name', 'path', 'created_at', 'updated_at'];
 }

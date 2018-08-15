@@ -17,9 +17,7 @@ class CreateFilesTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->string('name');
-            $table->string('extension');
-            $table->string('mime');
-            $table->string('size');
+            $table->string('path');
             $table->timestamps();
             $table->softDeletes();
         });
