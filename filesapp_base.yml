@@ -1,0 +1,29 @@
+version: '2'
+services:
+
+  mysql_base:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: filesapp
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: db
+
+  filesapp_server_base:
+    command: tail -f /dev/null
+    restart: always
+    build: ./
+    environment:
+      ONLY_HTTPS: 0
+      APP_ENV: local
+      APP_KEY: base64:RP5P5CDfYwRlRvFRvn9xDPO6DibZjLyau7/vPDB5lAs=
+      APP_DEBUG: 1
+      APP_LOG_LEVEL: debug
+      BROADCAST_DRIVER: log
+      CACHE_DRIVER: file
+      SESSION_DRIVER: file
+      DB_CONNECTION: mysql
+      DB_PORT: 3306
+      DB_USERNAME: filesapp
+      DB_PASSWORD: pass
+      DB_DATABASE: db

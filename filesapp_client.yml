@@ -1,0 +1,19 @@
+version: '2'
+services:
+
+  # Service
+  filesapp_client_dev:
+    build:
+      context: ./client
+    container_name: filesapp_client
+    volumes:
+      - ./client/:/app
+      - /app/node_modules
+    ports:
+      - "5001:5001"
+    depends_on:
+      - filesapp_server_dev
+    environment:
+      NODE_ENV: dev
+    networks:
+      - filesapp_internal
