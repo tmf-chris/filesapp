@@ -1,4 +1,7 @@
 /node_modules
 /public/storage
 /.idea
+/vendor
+.DS_Store
 .data
+.env
