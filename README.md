@@ -22,6 +22,6 @@ $ docker-compose -f filesapp_server.yml filesapp_client.yml up -d
 ### Go to front end in browser
 
 ```sh
-$ open -a "Google Chrome" http://localhost:5002
+$ open -a "Google Chrome" http://localhost:5001
 ```
  
