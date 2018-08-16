@@ -4,7 +4,6 @@ ADD package.json /app/
 WORKDIR /app
 
 RUN npm install && \
-npm install -g karma-cli && \
 npm rebuild node-sass
 
 ADD . /app
