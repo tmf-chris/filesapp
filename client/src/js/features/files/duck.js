@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { hideDialog } from '../dialogs/duck';
 import * as Constants from '../../constants';
 
 // Actions
@@ -15,40 +16,40 @@ const PERFORMED_DELETE = 'filesapp/files/PERFORMED_DELETE';
 const FAILED_DELETE = 'filesapp/files/FAILED_DELETE';
 
 // Reducers
-export function filesReducer(state = { status: 'none', data: [] }, action) {
+export function filesReducer(state = { status: 'none', data: [], error: '' }, action) {
     switch (action.type) {
         case PERFORMING_LOAD:
             return { ...state, status: Constants.REQUESTING };
         case PERFORMED_LOAD:
             return { status: Constants.RECEIVED, data: action.payload };
         case FAILED_LOAD:
-            return { ...state, status: Constants.FAILED };
+            return { ...state, status: Constants.FAILED, error: action.payload };
         default:
             return state;
     }
 }
 
-export function uploadFileReducer(state = { status: 'none', data: {} }, action) {
+export function uploadFileReducer(state = { status: 'none', data: {}, error: '' }, action) {
     switch (action.type) {
         case PERFORMING_UPLOAD:
             return { ...state, status: Constants.REQUESTING };
         case PERFORMED_UPLOAD:
             return { status: Constants.RECEIVED, data: action.payload };
         case FAILED_UPLOAD:
-            return { ...state, status: Constants.FAILED };
+            return { ...state, status: Constants.FAILED, error: action.payload };
         default:
             return state;
     }
 }
 
-export function deleteFilesReducer(state = { status: 'none', data: [] }, action) {
+export function deleteFilesReducer(state = { status: 'none', data: [], error: '' }, action) {
     switch (action.type) {
         case PERFORMING_DELETE:
             return { ...state, status: Constants.REQUESTING };
         case PERFORMED_DELETE:
             return { status: Constants.RECEIVED };
         case FAILED_DELETE:
-            return { ...state, status: Constants.FAILED };
+            return { ...state, status: Constants.FAILED, error: action.payload };
         default:
             return state;
     }
@@ -63,7 +64,7 @@ function loadedFiles(data) {
     return { type: PERFORMED_LOAD, payload: data.files };
 }
 
-function failedToLoadFiles(error) {
+export function failedToLoadFiles(error) {
     return { type: FAILED_LOAD, payload: error };
 }
 
@@ -76,7 +77,7 @@ function uploadedFile(data) {
 }
 
 function failedToUploadFile(error) {
-    return { type: FAILED_LOAD, payload: error };
+    return { type: FAILED_UPLOAD, payload: error };
 }
 
 function deleteFiles() {
@@ -99,8 +100,8 @@ export function getFiles() {
             const result = await axios.get(Constants.SERVER_URL+'files');
             dispatch(loadedFiles(result.data));
         } catch (error) {
-            console.error('Error loading files', error);
-            dispatch(failedToLoadFiles(error));
+            console.error('Error loading files', error.response);
+            dispatch(failedToLoadFiles(error.response));
         }
     };
 }
@@ -109,14 +110,31 @@ export function doUploadFile(data) {
     return async (dispatch, getState) => {
         dispatch(uploadFile());
         try {
+            if (data.file.size > Constants.MAX_FILE_SIZE) {
+                throw new Error();
+            }
             const formData = new FormData();
             formData.append('file', data.file);
-            const result = await axios.post(Constants.SERVER_URL+'files', formData);
+            const result = await axios.post(Constants.SERVER_URL+'files', formData, { headers: {'Content-Type': 'multipart/form-data' } });
             dispatch(uploadedFile(result.data));
+            dispatch(hideDialog('upload'));
             dispatch(getFiles());
         } catch (error) {
-            console.error('Error uploading file', error);
-            dispatch(failedToUploadFile(error));
+            console.log(error);
+            if (!error.hasOwnProperty('response')) {
+                error.response = {
+                    data: {
+                        status: {
+                            file: [
+                                Constants.FILE_SIZE_EXCEEDED
+                            ]
+                        }
+                    },
+                    status: 400
+                }
+            }
+            console.error('Error uploading file', error.response);
+            dispatch(failedToUploadFile(error.response));
         }
     };
 }
@@ -129,8 +147,8 @@ export function doDeleteFiles(data) {
             dispatch(deletedFiles(result.data));
             dispatch(getFiles());
         } catch (error) {
-            console.error('Error deleting files', error);
-            dispatch(failedToDeleteFiles(error));
+            console.error('Error deleting files', error.response);
+            dispatch(failedToDeleteFiles(error.response));
         }
     };
 }

@@ -9,7 +9,7 @@ const makeDialog = WrappedComponent => {
 
     const styles = {
         wrapped: {
-            padding: '16px'
+            padding: '0 16px 16px 16px'
         }
     };
 

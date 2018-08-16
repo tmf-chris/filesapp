@@ -35,7 +35,6 @@ will be lost if the container is deleted. The database for the backend is synchr
 ```sh
 $ cd server
 $ rm -rf .data
-
 ```
 
 The file details are stored in a table in the server's db. This is to make it easy to apply 
@@ -49,22 +48,31 @@ CORS is used for calls to the server; currently locked to localhost, port of the
 
 ## Installation
 
-### Create and launch docker containers/services
+### 1. Secure laravel's encryption strings
+```sh
+$ cd server
+$ cp .env.example .env
+$ php artisan key:generate
+$ cd ..
+```
+
+### 2. Create and launch docker containers/services
+Make sure you are at the top level, where the yml files reside:
 ```sh
 $ docker-compose -f filesapp_server.yml filesapp_client.yml up -d
-
 ```
 
-### Stop services
-```sh
-$ docker-compose -f filesapp_server.yml filesapp_client.yml down
-
-```
-
-### Go to front end in browser
+### 3. Viewing the client app in your browser
 
 ```sh
 $ open -a "Google Chrome" http://localhost:5001
+```
+
+## Other operations
+
+### Stopping the docker services
+```sh
+$ docker-compose -f filesapp_server.yml filesapp_client.yml down
 ```
 
 ### Running frontend tests

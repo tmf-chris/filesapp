@@ -6,6 +6,9 @@ use App\File;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
+use Validator;
+
+
 
 class FileController extends Controller
 {
@@ -17,7 +20,19 @@ class FileController extends Controller
 
     public function store(Request $request)
     {
+        \Log::info('HERE: '.$request->hasFile('file'));
         $file = $request->file('file');
+        \Log::info('FILE: '.$file);
+        $acceptedMimes = implode(',', config('app.mimes'));
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|max:2048|mimetypes:'.$acceptedMimes
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => $validator->messages()], 400);
+        }
+
         $name = $file->getClientOriginalName();
         $path = Storage::disk('public')->putFile('uploads', $file);
         $file = File::create([
@@ -54,5 +69,11 @@ class FileController extends Controller
     {
         File::whereIn('id', $request->ids)->delete();
         return response()->json(['status' => 'success'], 200);
+    }
+
+    public function allowed(){
+        $mimes = config('app.mimes');
+        $acceptedMimes = implode(',', $mimes);
+        return response()->json($acceptedMimes, 200);
     }
 }

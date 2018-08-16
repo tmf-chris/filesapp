@@ -25,20 +25,20 @@ const fileUploadConnector = WrappedComponent => {
         }
 
         fileUpload(files) {
-            const formData = { file: files[0] };
-            const { doUploadFile, onClose } = this.props;
-            this.props.doUploadFile(formData);
-            if (onClose) {
-                onClose();
-            }
+            const file = files[0];
+            const { doUploadFile } = this.props;
+            doUploadFile({ file: file });
         }
 
         render() {
-            const { ...otherProps } = this.props;
+            const { uploadedFile, ...otherProps } = this.props;
+            const { files } = this.state;
             return (
                 <WrappedComponent
                     onFormSubmit = { (e) => this.onFormSubmit(e) }
                     onChange = { (e) => this.onChange(e) }
+                    uploadedFile = { uploadedFile }
+                    files = { files }
                     { ...otherProps }
                 />
             );
@@ -46,8 +46,8 @@ const fileUploadConnector = WrappedComponent => {
     }
 
     return connect(
-        state => { return { uploaded_file: state.uploaded_file } },
-        dispatch => bindActionCreators({doUploadFile}, dispatch)
+        state => { return { uploadedFile: state.uploaded_file } },
+        dispatch => bindActionCreators({ doUploadFile }, dispatch)
     )(FileUploadConnector);
 }
 
