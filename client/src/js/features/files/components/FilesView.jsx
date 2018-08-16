@@ -59,19 +59,19 @@ const styles = {
 };
 
 const FilesView = (
-    { files, selection, selectAll, setRef, toggleSelection, toggleAll, isSelected, bulkDelete, ...otherProps }
+        { files, selection, selectAll, setRef, toggleSelection, toggleAll, isSelected, bulkDelete, ...otherProps }
     ) => {
     const checkboxProps = {
         selectAll,
         isSelected,
         toggleSelection,
         toggleAll,
-        selectType: "checkbox",
+        selectType: 'checkbox',
         getTrProps: (s, r) => {
             const selected = typeof r !== 'undefined' && isSelected(r.original._id);
             return {
                 style: {
-                    backgroundColor: selected ? "lightgreen" : "inherit"
+                    backgroundColor: selected ? 'lightgrey' : 'inherit'
                 }
             };
         }
@@ -88,7 +88,7 @@ const FilesView = (
                 ref = { setRef }
                 data ={ files.data }
                 columns = {[{
-                    Header: "Uploaded Files",
+                    Header: 'Uploaded Files',
                     columns: columns
                 }]}
                 loading = { files.status === Constants.REQUESTING }

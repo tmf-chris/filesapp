@@ -21,7 +21,7 @@ export function filesReducer(state = { status: 'none', data: [], error: '' }, ac
         case PERFORMING_LOAD:
             return { ...state, status: Constants.REQUESTING };
         case PERFORMED_LOAD:
-            return { status: Constants.RECEIVED, data: action.payload };
+            return { status: Constants.RECEIVED, data: action.payload, error: '' };
         case FAILED_LOAD:
             return { ...state, status: Constants.FAILED, error: action.payload };
         default:
@@ -34,7 +34,7 @@ export function uploadFileReducer(state = { status: 'none', data: {}, error: '' 
         case PERFORMING_UPLOAD:
             return { ...state, status: Constants.REQUESTING };
         case PERFORMED_UPLOAD:
-            return { status: Constants.RECEIVED, data: action.payload };
+            return { status: Constants.RECEIVED, data: action.payload, error: '' };
         case FAILED_UPLOAD:
             return { ...state, status: Constants.FAILED, error: action.payload };
         default:
@@ -47,7 +47,7 @@ export function deleteFilesReducer(state = { status: 'none', data: [], error: ''
         case PERFORMING_DELETE:
             return { ...state, status: Constants.REQUESTING };
         case PERFORMED_DELETE:
-            return { status: Constants.RECEIVED };
+            return { ...state, status: Constants.RECEIVED, error: '' };
         case FAILED_DELETE:
             return { ...state, status: Constants.FAILED, error: action.payload };
         default:

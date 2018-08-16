@@ -11,7 +11,7 @@ const styles = {
     }
 }
 
-const BulkFileHandler = ({ numSelected, bulkAction, bulkLabel, ...otherProps }) => {
+const BulkFileHandler = ({ numSelected, bulkAction, bulkLabel }) => {
     return (
         <div>
             <span style={styles.text}>Selected {numSelected} files</span>

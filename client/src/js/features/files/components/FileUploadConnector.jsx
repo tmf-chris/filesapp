@@ -38,7 +38,7 @@ const fileUploadConnector = WrappedComponent => {
                     onFormSubmit = { (e) => this.onFormSubmit(e) }
                     onChange = { (e) => this.onChange(e) }
                     uploadedFile = { uploadedFile }
-                    files = { files }
+                    numFiles = { files.length }
                     { ...otherProps }
                 />
             );
