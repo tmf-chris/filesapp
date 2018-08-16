@@ -19,7 +19,8 @@ const FileUploadView = ({ onFormSubmit, onChange, uploadedFile, files, ...otherP
     const errors = {
         [Constants.FILE_TYPE_NOT_ALLOWED]: 'File type not allowed',
         [Constants.FILE_SIZE_EXCEEDED]: 'File exceeds allowed size',
-        [Constants.FILE_SIZE_REJECTED] : 'File exceeds allowed size'
+        [Constants.FILE_SIZE_REJECTED] : 'File exceeds allowed size',
+        [Constants.FILE_SIZE_EXCEEDED_STR] : 'File exceeds allowed size'
     }
     const hasError = uploadedFile.hasOwnProperty('error') && uploadedFile.error.hasOwnProperty('data');
     return (

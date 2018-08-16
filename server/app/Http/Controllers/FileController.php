@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 use Validator;
 
 
-
 class FileController extends Controller
 {
     public function index()
@@ -20,13 +19,11 @@ class FileController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info('HERE: '.$request->hasFile('file'));
         $file = $request->file('file');
-        \Log::info('FILE: '.$file);
         $acceptedMimes = implode(',', config('app.mimes'));
 
         $validator = Validator::make($request->all(), [
-            'file' => 'required|max:2048|mimetypes:'.$acceptedMimes
+            'file' => 'required|max:10240|mimetypes:'.$acceptedMimes
         ]);
 
         if ($validator->fails()) {
@@ -38,7 +35,8 @@ class FileController extends Controller
         $file = File::create([
             'name' => $name,
             'path' => $path,
-            'type' => $file->getMimeType()
+            'type' => $file->getMimeType(),
+            'size' => $file->getClientSize()
         ]);
         return response()->json(['status' => 'success'], 200);
     }
@@ -49,8 +47,7 @@ class FileController extends Controller
     }
 
     public function edit($id){
-        $file = File::find($id);
-        return response()->json($file, 200);
+        return response()->json(['status' => 'success'], 200);
     }
 
     public function update($id, Request $request)

@@ -18,6 +18,7 @@ services:
       - "5000:80"
     volumes:
       - ./server:/app
+      - ./server/custom.ini:/opt/php/lib/conf.d/overrides.ini
     environment:
       APP_URL: http://localhost:5000
       DB_HOST: filesapp_db_dev

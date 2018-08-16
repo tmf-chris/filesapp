@@ -110,9 +110,6 @@ export function doUploadFile(data) {
     return async (dispatch, getState) => {
         dispatch(uploadFile());
         try {
-            if (data.file.size > Constants.MAX_FILE_SIZE) {
-                throw new Error();
-            }
             const formData = new FormData();
             formData.append('file', data.file);
             const result = await axios.post(Constants.SERVER_URL+'files', formData, { headers: {'Content-Type': 'multipart/form-data' } });
@@ -120,19 +117,6 @@ export function doUploadFile(data) {
             dispatch(hideDialog('upload'));
             dispatch(getFiles());
         } catch (error) {
-            console.log(error);
-            if (!error.hasOwnProperty('response')) {
-                error.response = {
-                    data: {
-                        status: {
-                            file: [
-                                Constants.FILE_SIZE_EXCEEDED
-                            ]
-                        }
-                    },
-                    status: 400
-                }
-            }
             console.error('Error uploading file', error.response);
             dispatch(failedToUploadFile(error.response));
         }

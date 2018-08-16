@@ -3,6 +3,7 @@ import ReactTable from 'react-table';
 import checkboxHOC from 'react-table/lib/hoc/selectTable';
 import BulkFileHandler from './BulkFileHandler';
 import * as Constants from '../../../constants';
+import { getBytesFromFileSizeString, sortFileSizeStrings, formatBytes } from '../../../utils';
 import 'react-table/react-table.css';
 const moment = require('moment-timezone');
 
@@ -29,6 +30,16 @@ const columns = [
         filterMethod: (filter, row) => {
             return row[filter.id].includes(filter.value);
         }
+    },
+    {
+        id: 'Size',
+        Header: 'Size',
+        headerStyle: {textAlign: 'left'},
+        accessor: d => formatBytes(d.size),
+        filterMethod: (filter, row) => {
+            return getBytesFromFileSizeString(row[filter.id]) > filter.value;
+        },
+        sortMethod: sortFileSizeStrings
     },
     {
         id: 'Date',
