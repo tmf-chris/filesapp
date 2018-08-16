@@ -5,7 +5,8 @@ import FilesView from '../features/files/components/FilesView';
 import fileUploadConnector from '../features/files/components/FileUploadConnector';
 import FileUploadView from '../features/files/components/FileUploadView';
 import makeDialog from '../features/dialogs/components/MakeDialog';
-import DialogButton from '../features/dialogs/components/DialogButton';
+import makeDialogButton from '../features/dialogs/components/DialogButton';
+import ActionButton from '../features/dialogs/components/ActionButton';
 
 const styles = {
     main: {
@@ -19,13 +20,14 @@ const styles = {
 
 const FilesViewer = filesConnector(FilesView);
 const FileDialog = makeDialog(fileUploadConnector(FileUploadView));
+const FileUploadButton = makeDialogButton(ActionButton);
 
 const Page = () =>
     <div>
         <NavigationBar/>
         <div style={styles.main}>
             <div style={styles.inner}>
-                <DialogButton
+                <FileUploadButton
                     name='upload'
                     label='Upload File'
                 />
