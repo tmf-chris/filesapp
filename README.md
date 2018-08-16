@@ -8,6 +8,8 @@ using Laravel as backend and React/Redux as frontend. Stack:
 * React
 * Redux
 * React-Router
+* Hot reloading dev server *
+* Browserhistory (using express server)
 * Axios
 * Babel 6
 * Redux-Form
