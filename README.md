@@ -41,7 +41,7 @@ for ids of each file, rather than auto-incrementing ids, to enhance enumeration 
 to avoid id collisions when  db copying/merging. Files stored are assigned unique filenames in the 
 file system and their filenames/paths retrievable via looking them up in the database.
 
-##Installation
+## Installation
 
 ### Create and launch docker containers/services
 ```sh
