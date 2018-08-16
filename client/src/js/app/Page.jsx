@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 import NavigationBar from './NavigationBar';
 import filesConnector from '../features/files/components/FilesConnector';
 import FilesView from '../features/files/components/FilesView';
@@ -16,7 +15,6 @@ const styles = {
 };
 
 const FilesViewer = filesConnector(FilesView);
-const FileUploadViewer = fileUploadConnector(FileUploadView);
 const FileDialog = makeDialog(fileUploadConnector(FileUploadView));
 
 class Page extends React.Component {

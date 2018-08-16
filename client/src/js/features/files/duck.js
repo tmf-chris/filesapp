@@ -10,6 +10,10 @@ const PERFORMING_UPLOAD = 'filesapp/files/PERFORMING_UPLOAD';
 const PERFORMED_UPLOAD = 'filesapp/files/PERFORMED_UPLOAD';
 const FAILED_UPLOAD = 'filesapp/files/FAILED_UPLOAD';
 
+const PERFORMING_DELETE = 'filesapp/files/PERFORMING_DELETE';
+const PERFORMED_DELETE = 'filesapp/files/PERFORMED_DELETE';
+const FAILED_DELETE = 'filesapp/files/FAILED_DELETE';
+
 // Reducers
 export function filesReducer(state = { status: 'none', data: [] }, action) {
     switch (action.type) {
@@ -31,6 +35,19 @@ export function uploadFileReducer(state = { status: 'none', data: {} }, action) 
         case PERFORMED_UPLOAD:
             return { status: Constants.RECEIVED, data: action.payload };
         case FAILED_UPLOAD:
+            return { ...state, status: Constants.FAILED };
+        default:
+            return state;
+    }
+}
+
+export function deleteFilesReducer(state = { status: 'none', data: [] }, action) {
+    switch (action.type) {
+        case PERFORMING_DELETE:
+            return { ...state, status: Constants.REQUESTING };
+        case PERFORMED_DELETE:
+            return { status: Constants.RECEIVED };
+        case FAILED_DELETE:
             return { ...state, status: Constants.FAILED };
         default:
             return state;
@@ -62,6 +79,18 @@ function failedToUploadFile(error) {
     return { type: FAILED_LOAD, payload: error };
 }
 
+function deleteFiles() {
+    return { type: PERFORMING_DELETE };
+}
+
+function deletedFiles(data) {
+    return { type: PERFORMED_DELETE };
+}
+
+function failedToDeleteFile(error) {
+    return { type: FAILED_DELETE, payload: error };
+}
+
 // Thunks
 export function getFiles() {
     return async (dispatch, getState) => {
@@ -88,6 +117,20 @@ export function doUploadFile(data) {
         } catch (error) {
             console.error('Error uploading file', error);
             dispatch(failedToUploadFile(error));
+        }
+    };
+}
+
+export function doDeleteFiles(data) {
+    return async (dispatch, getState) => {
+        dispatch(deleteFiles());
+        try {
+            const result = await axios.delete(Constants.SERVER_URL+'files', { params: { ids: data } });
+            dispatch(deletedFiles(result.data));
+            dispatch(getFiles());
+        } catch (error) {
+            console.error('Error deleting files', error);
+            dispatch(failedToDeleteFiles(error));
         }
     };
 }

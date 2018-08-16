@@ -48,4 +48,10 @@ class FileController extends Controller
         $file->delete();
         return response()->json(['status' => 'success'], 200);
     }
+
+    public function destroyMany(Request $request)
+    {
+        File::whereIn('id', $request->ids)->delete();
+        return response()->json(['status' => 'success'], 200);
+    }
 }
