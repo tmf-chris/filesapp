@@ -13,7 +13,10 @@ const columns = [
         id: 'Name',
         Header: 'Name',
         headerStyle: { textAlign: 'left' },
-        accessor: d => { const url = Constants.SERVER_URL+'files/'+d.id; return <a href={url} target="_blank">{d.name}</a> },
+        accessor: d => {
+            const url = Constants.SERVER_URL+'files/'+d.id;
+            return <a href={url} target="_blank">{d.name}</a>
+        },
         filterMethod: (filter, row) => {
             return row[filter.id].props.children.includes(filter.value);
         }
@@ -38,7 +41,15 @@ const columns = [
     }
 ];
 
-const FilesView = ({ files, selection, selectAll, setRef, toggleSelection, toggleAll, isSelected, bulkDelete, ...otherProps }) => {
+const styles = {
+    table: {
+        marginRight: '64px'
+    }
+};
+
+const FilesView = (
+    { files, selection, selectAll, setRef, toggleSelection, toggleAll, isSelected, bulkDelete, ...otherProps }
+    ) => {
     const checkboxProps = {
         selectAll,
         isSelected,
@@ -56,19 +67,24 @@ const FilesView = ({ files, selection, selectAll, setRef, toggleSelection, toggl
     };
 
     return (
-        <div style={{ marginRight: '64px'}}>
-            <BulkFileHandler selection={selection} bulkAction={bulkDelete} bulkLabel='Delete'/>
+        <div style={styles.table}>
+            <BulkFileHandler
+                selection={selection}
+                bulkAction={bulkDelete}
+                bulkLabel='Delete'
+            />
             <CheckboxTable
-                ref={setRef}
-                data={files.data}
-                columns={[{
+                ref = { setRef }
+                data ={ files.data }
+                columns = {[{
                     Header: "Uploaded Files",
                     columns: columns
                 }]}
-                loading={files.status === Constants.REQUESTING}
+                loading = { files.status === Constants.REQUESTING }
                 filterable
-                className="-striped -highlight"
-                {...checkboxProps}
+                defaultPageSize = { 10 }
+                className = '-striped -highlight'
+                { ...checkboxProps }
             />
         </div>
     );

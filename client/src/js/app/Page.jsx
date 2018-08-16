@@ -11,27 +11,30 @@ const styles = {
     main: {
         width: '100%',
         padding: '88px 24px 0 24px'
+    },
+    inner: {
+        marginBottom: '16px'
     }
 };
 
 const FilesViewer = filesConnector(FilesView);
 const FileDialog = makeDialog(fileUploadConnector(FileUploadView));
 
-class Page extends React.Component {
-    render() {
-        return (
-            <div>
-                <NavigationBar/>
-                <div style={styles.main}>
-                    <div style={{ marginBottom: '16px' }}>
-                        <DialogButton name='upload' label='Upload File'/>
-                    </div>
-                    <FileDialog name='upload'/>
-                    <FilesViewer/>
-                </div>
+const Page = () =>
+    <div>
+        <NavigationBar/>
+        <div style={styles.main}>
+            <div style={styles.inner}>
+                <DialogButton
+                    name='upload'
+                    label='Upload File'
+                />
             </div>
-        );
-    }
-};
+            <FileDialog
+                name='upload'
+            />
+            <FilesViewer/>
+        </div>
+    </div>;
 
 export default Page;

@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { showDialog } from '../duck';
@@ -17,9 +16,15 @@ class DialogButton extends React.Component {
         const { name, label, classes } = this.props;
         return (
             <div>
-            <Button variant="contained" color="default" onClick={(e) => this.launchDialog(e)}>
+            <Button
+                variant="contained"
+                color="default"
+                onClick={(e) => this.launchDialog(e)}
+            >
                 { label }
-                <CloudUploadIcon style={{ marginLeft: '12px' }} />
+                <CloudUploadIcon
+                    style={{ marginLeft: '12px' }}
+                />
             </Button>
             </div>
         );

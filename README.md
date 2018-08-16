@@ -41,6 +41,8 @@ for ids of each file, rather than auto-incrementing ids, to enhance enumeration 
 to avoid id collisions when  db copying/merging. Files stored are assigned unique filenames in the 
 file system and their filenames/paths retrievable via looking them up in the database.
 
+CORS is used for calls to the server; currently locked to localhost, port of the client.
+
 ## Installation
 
 ### Create and launch docker containers/services
@@ -71,6 +73,10 @@ The "name", "type" and "date" columns are all sortable and searchable; to
 search, simply start typing into the field at the top of the column - the 
 searching is a "startsWith" comparator for simplicity.
 
+The name of each file is clickable; upon doing so the file will open in a new browser tab. This 
+was chosen over a strict "straight download" behaviour, as it is faster to debug whether the correct 
+file is uploaded.
+
 ### Possible improvements
 
 * Store files in S3 and allow retrieval of them via signed urls with an 
@@ -79,3 +85,4 @@ expiry datetime.
 * Pagination/filtering is within the react-table (frontend) component; medium term for 
 performance this should be moved server side, particular for more complex types of ordering/filtering. The 
 react-table component can be a controlled component for this purpose easily.
+* Allow for instant download as opposed to just being able to view the file.

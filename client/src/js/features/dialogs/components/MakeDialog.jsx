@@ -6,6 +6,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { hideDialog } from '../duck';
 
 const makeDialog = WrappedComponent => {
+
+    const styles = {
+        wrapped: {
+            padding: '16px'
+        }
+    };
+
     class MakeDialog extends React.Component {
         onClose() {
             this.props.hideDialog(this.props.name);
@@ -13,14 +20,14 @@ const makeDialog = WrappedComponent => {
 
         render() {
             const { dialogs, name, ...otherProps } = this.props;
-            const open = ( this.props.dialogs.hasOwnProperty(name) && this.props.dialogs[name] !== false );
+            const open = ( dialogs.hasOwnProperty(name) && dialogs[name] !== false );
             return (
                 <Dialog
                     open={ open }
                     onClose={ () => this.onClose() }
                 >
                     <DialogTitle>Choose file to upload</DialogTitle>
-                    <div style={{ padding: '16px' }}>
+                    <div style={ styles.wrapped }>
                         <WrappedComponent
                             onClose = { (e) => this.onClose(e) }
                             { ...otherProps }

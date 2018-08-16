@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Radium from 'radium';
 import { withStyles } from '@material-ui/core/styles';
 import { getFiles, doDeleteFiles } from '../duck';
 
@@ -80,7 +79,6 @@ const filesConnector = WrappedComponent => {
         }
     }
 
-    FilesConnector = Radium(FilesConnector);
     return connect(
         state => { return { files: state.files } },
         dispatch => bindActionCreators({ getFiles, doDeleteFiles }, dispatch)
