@@ -8,6 +8,6 @@ ADD composer.json /app/
 ADD composer.lock /app/
 ADD . /app
 
-RUN composer install --prefer-source --no-ansi --no-interaction \
-chown -R www-data:www-data /app/storage /app/bootstrap/cache \
-rm -rf /var/www/html && ln -s /app/public /var/www/html
+RUN composer install --prefer-source --no-ansi --no-interaction
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
+RUN rm -rf /var/www/html && ln -s /app/public /var/www/html
