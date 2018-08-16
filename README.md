@@ -95,20 +95,25 @@ $ npm test
 
 The single view shows a table of uploaded files. Clicking "upload file" opens 
 a dialog in which you can select a file for upload. Click "upload" to 
-upload the file.
+upload the file. There is a 10mb upload limit (on the server). The php configuration on the server 
+allows for a maximum of 64m, but the controller validates 10mb.
 
-The "name", "type" and "date" columns are all sortable and searchable; to 
+The "name", "type", "size" and "date" columns are all sortable and searchable; to 
 search, simply start typing into the field at the top of the column - the 
-searching is a "startsWith" comparator for simplicity.
+searching is a "substring" comparator for "name", "type" and "date". For "size", you can filter by 
+typing in the number of bytes; any items *larger* in size than that will be shown.
 
 The name of each file is clickable; upon doing so the file will open in a new browser tab. This 
 was chosen over a strict "straight download" behaviour, as it is faster to debug whether the correct 
 file is uploaded.
 
+When uploading a file, the actual mimetype (from its contents) will be scanned in the backend; therefore 
+if you upload a "jpg" that is actually a "pdf" then the filename will have extension jpg in the frontend 
+but the mimetype will be "application/pdf".
+
 ### Possible improvements
 
-* Store files in S3 and allow retrieval of them via signed urls with an 
-expiry datetime.
+* Store files in S3 and allow retrieval of them via signed urls with an expiry datetime.
 * Remove security warnings from some dependencies (some have warning level 1)
 * Pagination/filtering is within the react-table (frontend) component; medium term for 
 performance this should be moved server side, particular for more complex types of ordering/filtering. The 
