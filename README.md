@@ -34,6 +34,13 @@ $ rm -rf .data
 
 ```
 
+The file details are stored in a table in the server's db. This is to make it easy to apply 
+soft deletes when users "delete" files. It is envisaged that a cron would purge orphaned files 
+periodically, depending on data retention laws/agreements with stakeholders. Uuids are used 
+for ids of each file, rather than auto-incrementing ids, to enhance enumeration security issues and 
+to avoid id collisions when  db copying/merging. Files stored are assigned unique filenames in the 
+file system and their filenames/paths retrievable via looking them up in the database.
+
 ##Installation
 
 ### Create and launch docker containers/services
@@ -54,3 +61,21 @@ $ docker-compose -f filesapp_server.yml filesapp_client.yml down
 $ open -a "Google Chrome" http://localhost:5001
 ```
  
+### Instructions
+
+The single view shows a table of uploaded files. Clicking "upload file" opens 
+a dialog in which you can select a file for upload. Click "upload" to 
+upload the file.
+
+The "name", "type" and "date" columns are all sortable and searchable; to 
+search, simply start typing into the field at the top of the column - the 
+searching is a "startsWith" comparator for simplicity.
+
+### Possible improvements
+
+* Store files in S3 and allow retrieval of them via signed urls with an 
+expiry datetime.
+* Remove security warnings from some dependencies (some have warning level 1)
+* Pagination/filtering is within the react-table (frontend) component; medium term for 
+performance this should be moved server side, particular for more complex types of ordering/filtering. The 
+react-table component can be a controlled component for this purpose easily.

@@ -12,19 +12,30 @@ const columns = [
     {
         id: 'Name',
         Header: 'Name',
+        headerStyle: { textAlign: 'left' },
         accessor: d => { const url = Constants.SERVER_URL+'files/'+d.id; return <a href={url} target="_blank">{d.name}</a> },
-        filterMethod: (filter, row) => row[filter.id].startsWith(filter.value)
+        filterMethod: (filter, row) => {
+            return row[filter.id].props.children.includes(filter.value);
+        }
+    },
+    {
+        id: 'Type',
+        Header: 'Type',
+        headerStyle: { textAlign: 'left' },
+        accessor: d => d.type,
+        filterMethod: (filter, row) => {
+            return row[filter.id].includes(filter.value);
+        }
     },
     {
         id: 'Date',
         Header: 'Upload Date',
-        accessor: d => moment.utc(d.updated_at).local().format('YYYY-MM-DD HH:mm:ss')
-    },
-    {
-        id: 'edit',
-        accessor: 'id',
-        Cell: ({value}) => (<button onClick={() => handleDelete({value})}>Delete</button>)
-    },
+        headerStyle: { textAlign: 'left' },
+        accessor: d => moment.utc(d.updated_at).local().format('YYYY-MM-DD HH:mm:ss'),
+        filterMethod: (filter, row) => {
+            return row[filter.id].includes(filter.value);
+        }
+    }
 ];
 
 const FilesView = ({ files, selection, selectAll, setRef, toggleSelection, toggleAll, isSelected, bulkDelete, ...otherProps }) => {
@@ -51,12 +62,11 @@ const FilesView = ({ files, selection, selectAll, setRef, toggleSelection, toggl
                 ref={setRef}
                 data={files.data}
                 columns={[{
-                    Header: "Files",
+                    Header: "Uploaded Files",
                     columns: columns
                 }]}
                 loading={files.status === Constants.REQUESTING}
                 filterable
-                defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value}
                 className="-striped -highlight"
                 {...checkboxProps}
             />

@@ -22,7 +22,8 @@ class FileController extends Controller
         $path = Storage::disk('public')->putFile('uploads', $file);
         $file = File::create([
             'name' => $name,
-            'path' => $path
+            'path' => $path,
+            'type' => $file->getMimeType()
         ]);
         return response()->json(['status' => 'success'], 200);
     }
