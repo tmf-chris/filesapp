@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ActionButton from '../src/js/features/dialogs/components/ActionButton';
 
-test('Action button', () => {
+test('Action button click calls supplied callback', () => {
     let actionDone = false;
     const action = () => {
         actionDone = true;
