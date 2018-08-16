@@ -11,14 +11,14 @@ const styles = {
     }
 }
 
-const BulkFileHandler = ({ selection, bulkAction, bulkLabel, ...otherProps }) => {
+const BulkFileHandler = ({ numSelected, bulkAction, bulkLabel, ...otherProps }) => {
     return (
         <div>
-            <span style={styles.text}>Selected {selection.length} files</span>
+            <span style={styles.text}>Selected {numSelected} files</span>
             <Button
-                color="primary"
-                onClick={bulkAction}
-                disabled={selection.length === 0}
+                color = "primary"
+                onClick = {bulkAction}
+                disabled = {numSelected === 0}
             >
                 { bulkLabel }
                 <DeleteForeverIcon style={styles.icon} />

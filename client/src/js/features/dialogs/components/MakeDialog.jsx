@@ -15,18 +15,19 @@ const makeDialog = WrappedComponent => {
 
     class MakeDialog extends React.Component {
         onClose() {
-            this.props.hideDialog(this.props.name);
+            const { hideDialog, name } = this.props;
+            hideDialog(name);
         }
 
         render() {
-            const { dialogs, name, ...otherProps } = this.props;
+            const { dialogs, name, label, ...otherProps } = this.props;
             const open = ( dialogs.hasOwnProperty(name) && dialogs[name] !== false );
             return (
                 <Dialog
                     open={ open }
                     onClose={ () => this.onClose() }
                 >
-                    <DialogTitle>Choose file to upload</DialogTitle>
+                    <DialogTitle>{ label }</DialogTitle>
                     <div style={ styles.wrapped }>
                         <WrappedComponent
                             onClose = { (e) => this.onClose(e) }
@@ -40,7 +41,7 @@ const makeDialog = WrappedComponent => {
 
     return connect(
         state => { return { dialogs: state.dialogs } },
-        dispatch => bindActionCreators({hideDialog}, dispatch)
+        dispatch => bindActionCreators({ hideDialog }, dispatch)
     )(MakeDialog);
 }
 

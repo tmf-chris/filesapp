@@ -80,9 +80,9 @@ const FilesView = (
     return (
         <div style={styles.table}>
             <BulkFileHandler
-                selection={selection}
-                bulkAction={bulkDelete}
-                bulkLabel='Delete'
+                numSelected = { selection.length }
+                bulkAction = {bulkDelete}
+                bulkLabel = 'Delete'
             />
             <CheckboxTable
                 ref = { setRef }
