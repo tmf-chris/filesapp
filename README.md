@@ -48,21 +48,25 @@ CORS is used for calls to the server; currently locked to localhost, port of the
 
 ## Installation
 
-### 1. Secure laravel's encryption strings
+### 1. Download and run composer
+[https://getcomposer.org/download](https://getcomposer.org/download)
+
+### 2. Set up laravel
 ```sh
 $ cd server
 $ cp .env.example .env
+$ composer install
 $ php artisan key:generate
 $ cd ..
 ```
 
-### 2. Create and launch docker containers/services
+### 3. Create and launch docker containers/services
 Make sure you are at the top level, where the yml files reside:
 ```sh
-$ docker-compose -f filesapp_server.yml filesapp_client.yml up -d
+$ docker-compose -f filesapp_server.yml -f filesapp_client.yml up -d
 ```
 
-### 3. Viewing the client app in your browser
+### 4. View the client app in your browser
 
 ```sh
 $ open -a "Google Chrome" http://localhost:5001
@@ -72,7 +76,7 @@ $ open -a "Google Chrome" http://localhost:5001
 
 ### Stopping the docker services
 ```sh
-$ docker-compose -f filesapp_server.yml filesapp_client.yml down
+$ docker-compose -f filesapp_server.yml -f filesapp_client.yml down
 ```
 
 ### Running frontend tests
