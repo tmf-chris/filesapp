@@ -56,6 +56,7 @@ const filesConnector = WrappedComponent => {
             const { selection } = this.state;
             if (selection.length > 0) {
                 doDeleteFiles(selection);
+                this.setState({ selection: [] });
             }
         }
 
