@@ -1,5 +1,6 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
+import makeSelectable from '../features/files/components/SelectableFilesView';
 import filesConnector from '../features/files/components/FilesConnector';
 import FilesView from '../features/files/components/FilesView';
 import fileUploadConnector from '../features/files/components/FileUploadConnector';
@@ -18,7 +19,7 @@ const styles = {
     }
 };
 
-const FilesViewer = filesConnector(FilesView);
+const FilesViewer = makeSelectable(filesConnector(FilesView));
 const FileDialog = makeDialog(fileUploadConnector(FileUploadView));
 const FileUploadButton = makeDialogButton(ActionButton);
 
