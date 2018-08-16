@@ -1,12 +1,15 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import ActionButton from '../src/js/features/dialogs/components/ActionButton';
-import renderer from 'react-test-renderer';
 
 test('Action button', () => {
-    const component = renderer.create(
-        <ActionButton action={(e) => {}} label='Button'/>
-    );
+    let actionDone = false;
+    const action = () => {
+        actionDone = true;
+    };
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const wrapper = shallow(<ActionButton action={action} label='Button'/>);
+    const button = wrapper.find('.action-button');
+    button.simulate('click');
+    expect(actionDone).toBe(true);
 });

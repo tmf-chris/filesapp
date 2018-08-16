@@ -11,9 +11,10 @@ const styles = {
 const ActionButton = ({ action, label }) =>
     <div>
         <Button
-            variant="contained"
-            color="default"
-            onClick={action}
+            variant = 'contained'
+            color = 'default'
+            onClick = { action }
+            className = 'action-button'
         >
             { label }
             <CloudUploadIcon

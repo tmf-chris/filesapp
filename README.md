@@ -15,6 +15,8 @@ using Laravel as backend and React/Redux as frontend. Stack:
 * Redux-Form
 * Material UI
 * Webpack
+* Enzyme
+* Jest
 
 ## Introduction
 
@@ -63,6 +65,15 @@ $ docker-compose -f filesapp_server.yml filesapp_client.yml down
 
 ```sh
 $ open -a "Google Chrome" http://localhost:5001
+```
+
+### Running frontend tests
+
+Tests for frontend use jest and enzyme; you can run them within the docker container:
+
+```sh
+$ docker exec -it filesapp_client bash
+$ npm test
 ```
  
 ### Instructions
