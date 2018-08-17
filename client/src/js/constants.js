@@ -20,6 +20,6 @@ export const FILE_SIZE_REJECTED = 'The file field is required.';
 export const FILE_SIZE_EXCEEDED_STR = 'The file may not be greater than 10240 kilobytes.';
 
 // File sizes
-export const KB = 1000;
+export const KB = 1024;
 export const MB = KB * KB;
 export const GB = MB * KB;
