@@ -77,24 +77,26 @@ const FilesView = (
         }
     };
 
+    const rows = files.data.map(el => { return { ...el, _id: el.id } });
     const numSelected = selection.length;
+    const loading = files.status === Constants.REQUESTING;
 
     return (
         <div style={styles.table}>
             <BulkFileHandler
-                messageLabel = { 'Selected ' + numSelected + 'files' }
+                messageLabel = { 'Selected ' + numSelected + ' files' }
                 buttonAction = {bulkDelete}
                 buttonLabel = 'Delete'
-                buttonDisabled = { numSelected === 0 }
+                disabled = { numSelected === 0 }
             />
             <CheckboxTable
                 ref = { setRef }
-                data ={ files.data }
+                data ={ rows }
                 columns = {[{
                     Header: 'Uploaded Files',
                     columns: columns
                 }]}
-                loading = { files.status === Constants.REQUESTING }
+                loading = { loading }
                 filterable
                 defaultPageSize = { 10 }
                 className = '-striped -highlight'

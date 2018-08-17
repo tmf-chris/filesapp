@@ -23,7 +23,6 @@ const filesConnector = WrappedComponent => {
 
         render() {
             const { files, ...otherProps } = this.props;
-            files.data = files.data.map(el => { return { ...el, _id: el.id } });
             return (
                 <WrappedComponent
                     files = { files }
