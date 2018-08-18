@@ -25,9 +25,9 @@ const FileUploadButton = makeDialogButton(ActionButton);
 
 const Page = () =>
     <div>
-        <NavigationBar title="Files app"/>
-        <div style={styles.main}>
-            <div style={styles.inner}>
+        <NavigationBar title = 'Files app'/>
+        <div style = { styles.main }>
+            <div style= { styles.inner }>
                 <FileUploadButton
                     name = 'upload'
                     label = 'Upload File'

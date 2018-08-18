@@ -2,6 +2,8 @@ import axios from 'axios';
 import { hideDialog } from '../dialogs/duck';
 import * as Constants from '../../constants';
 
+const FILES_URL = Constants.SERVER_URL + 'files';
+
 // Actions
 const PERFORMING_LOAD = 'filesapp/files/PERFORMING_LOAD';
 const PERFORMED_LOAD = 'filesapp/files/PERFORMED_LOAD';
@@ -97,7 +99,9 @@ export function getFiles() {
     return async (dispatch, getState) => {
         dispatch(loadFiles());
         try {
-            const result = await axios.get(Constants.SERVER_URL+'files');
+            const result = await axios.get(
+                FILES_URL
+            );
             dispatch(loadedFiles(result.data));
         } catch (error) {
             console.error('Error loading files', error.response);
@@ -112,7 +116,11 @@ export function doUploadFile(data) {
         try {
             const formData = new FormData();
             formData.append('file', data.file);
-            const result = await axios.post(Constants.SERVER_URL+'files', formData, { headers: {'Content-Type': 'multipart/form-data' } });
+            const result = await axios.post(
+                FILES_URL,
+                formData,
+                { headers: {'Content-Type': 'multipart/form-data' } }
+            );
             dispatch(uploadedFile(result.data));
             dispatch(hideDialog('upload'));
             dispatch(getFiles());
@@ -127,7 +135,10 @@ export function doDeleteFiles(data) {
     return async (dispatch, getState) => {
         dispatch(deleteFiles());
         try {
-            const result = await axios.delete(Constants.SERVER_URL+'files', { params: { ids: data } });
+            const result = await axios.delete(
+                FILES_URL,
+                { params: { ids: data } }
+            );
             dispatch(deletedFiles(result.data));
             dispatch(getFiles());
         } catch (error) {

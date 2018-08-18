@@ -4,11 +4,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 const NavigationBar = ({ title }) =>
-    <AppBar color="primary">
+    <AppBar color = 'primary'>
         <Toolbar>
             <Typography
-                variant="title"
-                color="inherit"
+                variant = 'title'
+                color = 'inherit'
             >
                 { title }
             </Typography>
