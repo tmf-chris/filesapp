@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import FileUploadView from '../src/js/features/files/components/FileUploadView';
+import FileUploadForm from '../src/js/features/files/components/FileUploadForm';
 import * as Constants from '../src/js/constants';
 
 test('File upload view shows no error chip for correct file (size/type)', () => {
     const uploadedFile = {};
     const wrapper = shallow(
-        <FileUploadView
+        <FileUploadForm
             uploadedFile = { uploadedFile }
         />
 );
@@ -16,7 +16,7 @@ test('File upload view shows no error chip for correct file (size/type)', () => 
 test('File upload view shows error chip for incorrect file type', () => {
     const uploadedFile = { error: { data: { status: { file: [Constants.FILE_TYPE_NOT_ALLOWED] } } } };
     const wrapper = shallow(
-        <FileUploadView
+        <FileUploadForm
             uploadedFile = { uploadedFile }
             numFiles = { 1 }
         />
@@ -27,7 +27,7 @@ test('File upload view shows error chip for incorrect file type', () => {
 test('File upload view shows error chip for incorrect file size 1', () => {
     const uploadedFile = { error: { data: { status: { file: [Constants.FILE_SIZE_EXCEEDED] } } } };
     const wrapper = shallow(
-        <FileUploadView
+        <FileUploadForm
             uploadedFile = { uploadedFile }
             numFiles = { 1 }
         />
@@ -38,7 +38,7 @@ test('File upload view shows error chip for incorrect file size 1', () => {
 test('File upload view shows error chip for missing file', () => {
     const uploadedFile = { error: { data: { status: { file: [Constants.FILE_SIZE_REJECTED] } } } };
     const wrapper = shallow(
-        <FileUploadView
+        <FileUploadForm
             uploadedFile = { uploadedFile }
             numFiles = { 1 }
         />
@@ -49,7 +49,7 @@ test('File upload view shows error chip for missing file', () => {
 test('File upload view shows error chip for incorrect file size 2', () => {
     const uploadedFile = { error: { data: { status: { file: [Constants.FILE_SIZE_EXCEEDED_STR] } } } };
     const wrapper = shallow(
-        <FileUploadView
+        <FileUploadForm
             uploadedFile = { uploadedFile }
         numFiles = { 1 }
         />
@@ -59,7 +59,7 @@ test('File upload view shows error chip for incorrect file size 2', () => {
 
 test('File upload view disables submit button if no file in file field', () => {
     const wrapper = shallow(
-        <FileUploadView
+        <FileUploadForm
             numFiles = { 0 }
         />
     );
@@ -68,7 +68,7 @@ test('File upload view disables submit button if no file in file field', () => {
 
 test('File upload view enables submit button if file is in file field', () => {
     const wrapper = shallow(
-        <FileUploadView
+        <FileUploadForm
             numFiles = { 1 }
         />
     );

@@ -1,19 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import BulkFileHandler from '../src/js/features/files/components/BulkFileHandler';
+import DeleteFilesButton from '../src/js/features/files/components/DeleteFilesButton';
 
-test('Bulk file handler disables delete button if no files selected', () => {
+test('DeleteFilesButton disables delete button if no files selected', () => {
     const wrapper = shallow(
-        <BulkFileHandler
+        <DeleteFilesButton
             disabled = { true }
         />
     );
     expect(wrapper.find('#bulk-delete-button').first().props().disabled).toEqual(true);
 });
 
-test('Bulk file handler enables delete button if files selected', () => {
+test('DeleteFilesButton enables delete button if files selected', () => {
     const wrapper = shallow(
-        <BulkFileHandler
+        <DeleteFilesButton
             disabled = { false }
         />
     );
