@@ -1,14 +1,14 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const styles = {
     button: {
+        display: 'inline-block',
         marginLeft: '12px'
     }
 };
 
-const ActionButton = ({ action, label }) =>
+const IconButton = ({ action, label, icon }) =>
     <div>
         <Button
             variant = 'contained'
@@ -17,10 +17,8 @@ const ActionButton = ({ action, label }) =>
             className = 'action-button'
         >
             { label }
-            <CloudUploadIcon
-                style={styles.button}
-            />
+            <span style = { styles.button }>{ icon }</span>
         </Button>
     </div>;
 
-export default ActionButton;
+export default IconButton;
