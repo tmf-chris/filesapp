@@ -24,3 +24,6 @@ export const FILE_TYPE_NOT_ALLOWED = 'validation.mimetypes';
 export const FILE_SIZE_EXCEEDED = 'validation.size';
 export const FILE_SIZE_REJECTED = 'The file field is required.';
 export const FILE_SIZE_EXCEEDED_STR = 'The file may not be greater than ' + (MAX_FILE_SIZE_MB * KB) + ' kilobytes.';
+
+// Dates
+export const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';

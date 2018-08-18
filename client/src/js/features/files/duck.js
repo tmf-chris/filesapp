@@ -12,6 +12,7 @@ const FAILED_LOAD = 'filesapp/files/FAILED_LOAD';
 const PERFORMING_UPLOAD = 'filesapp/files/PERFORMING_UPLOAD';
 const PERFORMED_UPLOAD = 'filesapp/files/PERFORMED_UPLOAD';
 const FAILED_UPLOAD = 'filesapp/files/FAILED_UPLOAD';
+const CLEAR_UPLOAD_ERROR = 'filesapp/files/CLEAR_UPLOAD_ERROR';
 
 const PERFORMING_DELETE = 'filesapp/files/PERFORMING_DELETE';
 const PERFORMED_DELETE = 'filesapp/files/PERFORMED_DELETE';
@@ -39,6 +40,8 @@ export function uploadFileReducer(state = { status: 'none', data: {}, error: '' 
             return { status: Constants.RECEIVED, data: action.payload, error: '' };
         case FAILED_UPLOAD:
             return { ...state, status: Constants.FAILED, error: action.payload };
+        case CLEAR_UPLOAD_ERROR:
+            return { ...state, status: 'none', error: '' };
         default:
             return state;
     }
@@ -80,6 +83,10 @@ function uploadedFile(data) {
 
 function failedToUploadFile(error) {
     return { type: FAILED_UPLOAD, payload: error };
+}
+
+export function clearUploadError() {
+    return { type: CLEAR_UPLOAD_ERROR };
 }
 
 function deleteFiles() {

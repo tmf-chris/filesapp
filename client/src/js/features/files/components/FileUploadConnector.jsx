@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { doUploadFile } from '../duck';
+import { doUploadFile, clearUploadError } from '../duck';
 
 const fileUploadConnector = WrappedComponent => {
     class FileUploadConnector extends React.Component {
@@ -17,6 +17,7 @@ const fileUploadConnector = WrappedComponent => {
             if (!files.length)
                 return;
             this.setState({ files: files });
+            this.props.clearUploadError();
         }
 
         fileUpload(e, files) {
@@ -43,7 +44,7 @@ const fileUploadConnector = WrappedComponent => {
 
     return connect(
         state => { return { uploadedFile: state.uploaded_file } },
-        dispatch => bindActionCreators({ doUploadFile }, dispatch)
+        dispatch => bindActionCreators({ doUploadFile, clearUploadError }, dispatch)
     )(FileUploadConnector);
 }
 
