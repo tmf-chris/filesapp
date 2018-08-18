@@ -1,10 +1,10 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
-import makeSelectable from '../features/files/components/SelectableFilesView';
+import makeSelectable from '../features/files/components/MakeSelectable';
 import filesConnector from '../features/files/components/FilesConnector';
 import FilesView from '../features/files/components/FilesView';
 import fileUploadConnector from '../features/files/components/FileUploadConnector';
-import FileUploadView from '../features/files/components/FileUploadView';
+import FileUploadForm from '../features/files/components/FileUploadForm';
 import makeDialog from '../features/dialogs/components/MakeDialog';
 import makeDialogButton from '../features/dialogs/components/DialogButton';
 import ActionButton from '../features/dialogs/components/ActionButton';
@@ -19,8 +19,8 @@ const styles = {
     }
 };
 
-const FilesViewer = makeSelectable(filesConnector(FilesView));
-const FileDialog = makeDialog(fileUploadConnector(FileUploadView));
+const FilesViewer = filesConnector(makeSelectable(FilesView));
+const FileUploadDialog = makeDialog(fileUploadConnector(FileUploadForm));
 const FileUploadButton = makeDialogButton(ActionButton);
 
 const Page = () =>
@@ -33,7 +33,7 @@ const Page = () =>
                     label = 'Upload File'
                 />
             </div>
-            <FileDialog
+            <FileUploadDialog
                 name = 'upload'
                 label = 'Choose file to upload'
             />

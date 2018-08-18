@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import checkboxHOC from 'react-table/lib/hoc/selectTable';
-import BulkFileHandler from './BulkFileHandler';
+import DeleteFilesButton from './DeleteFilesButton';
 import * as Constants from '../../../constants';
 import { getBytesFromFileSizeString, sortFileSizeStrings, formatBytes } from '../../../utils';
 import 'react-table/react-table.css';
@@ -83,9 +83,9 @@ const FilesView = (
 
     return (
         <div style={styles.table}>
-            <BulkFileHandler
+            <DeleteFilesButton
                 messageLabel = { 'Selected ' + numSelected + ' files' }
-                buttonAction = {bulkDelete}
+                buttonAction = { bulkDelete }
                 buttonLabel = 'Delete'
                 disabled = { numSelected === 0 }
             />

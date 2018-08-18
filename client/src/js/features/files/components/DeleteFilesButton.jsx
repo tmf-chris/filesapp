@@ -14,7 +14,7 @@ const styles = {
     }
 }
 
-const BulkFileHandler = ({ messageLabel, buttonAction, buttonLabel, disabled }) => {
+const DeleteFilesButton = ({ messageLabel, buttonAction, buttonLabel, disabled }) => {
     const textStyle = disabled ? styles.textDisabled : styles.text;
     return (
         <div>
@@ -32,4 +32,4 @@ const BulkFileHandler = ({ messageLabel, buttonAction, buttonLabel, disabled }) 
     );
 };
 
-export default BulkFileHandler;
+export default DeleteFilesButton;

@@ -15,7 +15,7 @@ const styles = {
     }
 }
 
-const FileUploadView = ({ onFormSubmit, onChange, uploadedFile, numFiles, ...otherProps }) => {
+const FileUploadForm = ({ onFormSubmit, onChange, uploadedFile, numFiles, ...otherProps }) => {
     const errors = {
         [Constants.FILE_TYPE_NOT_ALLOWED]: 'File type not allowed',
         [Constants.FILE_SIZE_EXCEEDED]: 'File exceeds allowed size',
@@ -64,4 +64,4 @@ const FileUploadView = ({ onFormSubmit, onChange, uploadedFile, numFiles, ...oth
     );
 };
 
-export default FileUploadView;
+export default FileUploadForm;

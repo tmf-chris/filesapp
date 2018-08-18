@@ -18,7 +18,6 @@ export const sortFileSizeStrings = (a, b, desc) => {
     if (asize < bsize) {
         return -1;
     }
-    console.log(0);
     return 0;
 };
 

@@ -22,6 +22,7 @@ const makeDialog = WrappedComponent => {
         render() {
             const { dialogs, name, label, ...otherProps } = this.props;
             const open = ( dialogs.hasOwnProperty(name) && dialogs[name] !== false );
+            const meta = open ? dialogs[name] : {};
             return (
                 <Dialog
                     open={ open }
@@ -31,6 +32,7 @@ const makeDialog = WrappedComponent => {
                     <div style={ styles.wrapped }>
                         <WrappedComponent
                             onClose = { (e) => this.onClose(e) }
+                            meta = { meta }
                             { ...otherProps }
                         />
                     </div>

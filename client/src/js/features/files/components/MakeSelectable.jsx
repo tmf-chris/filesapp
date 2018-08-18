@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const makeSelectable = WrappedComponent => {
-    class SelectableFilesView extends Component {
+    class SelectableComponent extends Component {
         constructor() {
             super();
             this.state = {
@@ -44,6 +44,16 @@ const makeSelectable = WrappedComponent => {
             return this.state.selection.includes(key);
         }
 
+        deleteSelected(e) {
+            e.preventDefault();
+            const { deleteAction } = this.props;
+            const { selection } = this.state;
+            if (selection.length > 0) {
+                deleteAction(selection);
+                this.clearSelection();
+            }
+        }
+
         render() {
             const { ...otherProps } = this.props;
             const { selection, selectAll } = this.state;
@@ -51,7 +61,7 @@ const makeSelectable = WrappedComponent => {
                 <WrappedComponent
                     selection = { selection }
                     selectAll = { selectAll }
-                    clearSelection = { () => this.clearSelection() }
+                    bulkDelete = { (e) => this.deleteSelected(e) }
                     toggleSelection = { (k, s, r) => this.toggleSelection(k, s, r) }
                     toggleAll = { () => this.toggleAll() }
                     isSelected = { (k) => this.isSelected(k) }
@@ -63,7 +73,7 @@ const makeSelectable = WrappedComponent => {
 
     }
 
-    return SelectableFilesView;
+    return SelectableComponent;
 }
 
 export default makeSelectable;

@@ -12,21 +12,12 @@ const filesConnector = WrappedComponent => {
             getFiles();
         }
 
-        bulkDelete(e) {
-            e.preventDefault();
-            const { doDeleteFiles, selection, clearSelection } = this.props;
-            if (selection.length > 0) {
-                doDeleteFiles(selection);
-                clearSelection();
-            }
-        }
-
         render() {
-            const { files, ...otherProps } = this.props;
+            const { files, doDeleteFiles, ...otherProps } = this.props;
             return (
                 <WrappedComponent
                     files = { files }
-                    bulkDelete = { (e) => this.bulkDelete(e) }
+                    deleteAction = { doDeleteFiles }
                     { ...otherProps }
                 />
             );

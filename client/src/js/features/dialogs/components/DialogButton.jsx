@@ -7,8 +7,8 @@ const makeDialogButton = (WrappedComponent) => {
     class MakeDialogButton extends React.Component {
         action(e) {
             e.preventDefault();
-            const { name, showDialog } = this.props;
-            showDialog(name);
+            const { name, showDialog, meta = {} } = this.props;
+            showDialog(name, meta);
         }
 
         render() {

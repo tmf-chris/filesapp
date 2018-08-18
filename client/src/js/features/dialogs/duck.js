@@ -6,7 +6,7 @@ const HIDE_DIALOG = 'filesapp/dialogs/HIDE_DIALOG';
 export function dialogsReducer(state = {}, action) {
     switch (action.type) {
         case SHOW_DIALOG:
-            return { ...state, [action.payload.name]: true };
+            return { ...state, [action.payload.name]: action.payload.meta };
         case HIDE_DIALOG:
             return { ...state, [action.payload.name]: false };
         default:
@@ -15,8 +15,8 @@ export function dialogsReducer(state = {}, action) {
 }
 
 // Action Creators
-function showDialogAction(name) {
-    return { type: SHOW_DIALOG, payload: { name: name } };
+function showDialogAction(name, meta = {}) {
+    return { type: SHOW_DIALOG, payload: { name: name, meta: meta } };
 }
 
 function hideDialogAction(name) {
@@ -24,9 +24,9 @@ function hideDialogAction(name) {
 }
 
 // Thunks
-export function showDialog(name) {
+export function showDialog(name, meta = {}) {
     return async (dispatch, getState) => {
-        dispatch(showDialogAction(name));
+        dispatch(showDialogAction(name, meta));
     };
 }
 

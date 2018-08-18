@@ -12,11 +12,6 @@ const fileUploadConnector = WrappedComponent => {
             };
         }
 
-        onFormSubmit(e) {
-            e.preventDefault();
-            this.fileUpload(this.state.files);
-        }
-
         onChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             if (!files.length)
@@ -24,7 +19,8 @@ const fileUploadConnector = WrappedComponent => {
             this.setState({ files: files });
         }
 
-        fileUpload(files) {
+        fileUpload(e, files) {
+            e.preventDefault();
             const file = files[0];
             const { doUploadFile } = this.props;
             doUploadFile({ file: file });
@@ -35,7 +31,7 @@ const fileUploadConnector = WrappedComponent => {
             const { files } = this.state;
             return (
                 <WrappedComponent
-                    onFormSubmit = { (e) => this.onFormSubmit(e) }
+                    onFormSubmit = { (e) => this.fileUpload(e, files) }
                     onChange = { (e) => this.onChange(e) }
                     uploadedFile = { uploadedFile }
                     numFiles = { files.length }
